@@ -48,6 +48,13 @@ func check(keyedValues []int, ghosts []ghost) (ghostName string) {
 }
 
 func main() {
+
+	// TODO: print out all ghosts that match entered evidence. Currently only the last ghost is printed to a lable - use a slice
+	// TODO: add static content to other tabs
+	// TODO: add No-Evidence selectors w/ edited slice from evidence section
+	// TODO: place No-Evidence group in a section with toggled visibility
+	// TODO: adjust UI from basic template
+
 	a := app.New()
 	w := a.NewWindow("InSpectral")
 
@@ -70,6 +77,8 @@ func main() {
 		{name: "Demon", ev: []int{2, 5, 6}},
 		{name: "Yurei", ev: []int{4, 5, 6}},
 		{name: "Oni", ev: []int{1, 2, 5}},
+		{name: "Hantu", ev: []int{3, 4, 5}},
+		{name: "Yokai", ev: []int{2, 4, 5}},
 	}
 
 	// ghostsPos := make([]ghost, 0, 12)
@@ -100,59 +109,60 @@ func main() {
 
 	// Evidence that has not been found
 	space := widget.NewSeparator()
-	title2 := widget.NewLabel("Select The Evidence That Has Not Been Found:")
+	// title2 := widget.NewLabel("Select The Evidence That Has Not Been Found:")
 
-	selectEvidence4 := widget.NewSelect(evidence, func(value string) {
-		log.Println("Select set to", value)
-	})
-	selectEvidence5 := widget.NewSelect(evidence, func(value string) {
-		log.Println("Select set to", value)
-	})
-	selectEvidence6 := widget.NewSelect(evidence, func(value string) {
-		log.Println("Select set to", value)
-	})
-	selectEvidence7 := widget.NewSelect(evidence, func(value string) {
-		log.Println("Select set to", value)
-	})
+	// selectEvidence4 := widget.NewSelect(evidence, func(value string) {
+	// 	log.Println("Select set to", value)
+	// })
+	// selectEvidence5 := widget.NewSelect(evidence, func(value string) {
+	// 	log.Println("Select set to", value)
+	// })
+	// selectEvidence6 := widget.NewSelect(evidence, func(value string) {
+	// 	log.Println("Select set to", value)
+	// })
+	// selectEvidence7 := widget.NewSelect(evidence, func(value string) {
+	// 	log.Println("Select set to", value)
+	// })
 
 	selectEvidence1.SetSelectedIndex(0)
 	selectEvidence2.SetSelectedIndex(0)
 	selectEvidence3.SetSelectedIndex(0)
 
-	selectEvidence4.SetSelectedIndex(0)
-	selectEvidence5.SetSelectedIndex(0)
-	selectEvidence6.SetSelectedIndex(0)
-	selectEvidence7.SetSelectedIndex(0)
+	// selectEvidence4.SetSelectedIndex(0)
+	// selectEvidence5.SetSelectedIndex(0)
+	// selectEvidence6.SetSelectedIndex(0)
+	// selectEvidence7.SetSelectedIndex(0)
 
-	// clearButtonEv := widget.NewButton("Clear", func() {
-	// 	selectEvidence1.ClearSelected()
-	// 	selectEvidence2.ClearSelected()
-	// 	selectEvidence3.ClearSelected()
-	// })
-
-	clearButtonNoEv := widget.NewButton("Clear", func() {
-		selectEvidence4.SetSelectedIndex(0)
-		selectEvidence5.SetSelectedIndex(0)
-		selectEvidence6.SetSelectedIndex(0)
-		selectEvidence7.SetSelectedIndex(0)
-		var keyed1 = selectEvidence1.SelectedIndex()
-		var keyed2 = selectEvidence2.SelectedIndex()
-		var keyed3 = selectEvidence3.SelectedIndex()
-		var keyedValues = []int{keyed1, keyed2, keyed3}
-		sort.Ints(keyedValues)
-		str.Set(check(keyedValues, ghosts))
-	})
-
-	clearButtonAll := widget.NewButton("Clear All", func() {
+	clearButtonEv := widget.NewButton("Clear", func() {
 		selectEvidence1.SetSelectedIndex(0)
 		selectEvidence2.SetSelectedIndex(0)
 		selectEvidence3.SetSelectedIndex(0)
-		selectEvidence4.SetSelectedIndex(0)
-		selectEvidence5.SetSelectedIndex(0)
-		selectEvidence6.SetSelectedIndex(0)
-		selectEvidence7.SetSelectedIndex(0)
 		str.Set(ghosts[0].name)
 	})
+
+	// clearButtonNoEv := widget.NewButton("Clear", func() {
+	// 	selectEvidence4.SetSelectedIndex(0)
+	// 	selectEvidence5.SetSelectedIndex(0)
+	// 	selectEvidence6.SetSelectedIndex(0)
+	// 	selectEvidence7.SetSelectedIndex(0)
+	// 	var keyed1 = selectEvidence1.SelectedIndex()
+	// 	var keyed2 = selectEvidence2.SelectedIndex()
+	// 	var keyed3 = selectEvidence3.SelectedIndex()
+	// 	var keyedValues = []int{keyed1, keyed2, keyed3}
+	// 	sort.Ints(keyedValues)
+	// 	str.Set(check(keyedValues, ghosts))
+	// })
+
+	// clearButtonAll := widget.NewButton("Clear All", func() {
+	// 	selectEvidence1.SetSelectedIndex(0)
+	// 	selectEvidence2.SetSelectedIndex(0)
+	// 	selectEvidence3.SetSelectedIndex(0)
+	// 	selectEvidence4.SetSelectedIndex(0)
+	// 	selectEvidence5.SetSelectedIndex(0)
+	// 	selectEvidence6.SetSelectedIndex(0)
+	// 	selectEvidence7.SetSelectedIndex(0)
+	// 	str.Set(ghosts[0].name)
+	// })
 
 	checkButton := widget.NewButton("Check", func() {
 		var keyed1 = selectEvidence1.SelectedIndex()
@@ -174,18 +184,18 @@ func main() {
 			selectEvidence1,
 			selectEvidence2,
 			selectEvidence3,
-			space,
-			title2,
-			selectEvidence4,
-			selectEvidence5,
-			selectEvidence6,
-			selectEvidence7,
+			// space,
+			// title2,
+			// selectEvidence4,
+			// selectEvidence5,
+			// selectEvidence6,
+			// selectEvidence7,
 			space,
 			ghostLabel,
 			space,
 			container.NewHBox(
-				clearButtonNoEv,
-				clearButtonAll,
+				clearButtonEv,
+				// clearButtonAll,
 				layout.NewSpacer(),
 				checkButton),
 		)),
