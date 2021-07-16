@@ -44,8 +44,9 @@ func check(keyedValues []int, ghosts []ghost) (ghostsNames []string) {
 		}
 	}
 	// quick way to display "no ghost found"
-	if wrong == 13 {
+	if wrong == 15 {
 		ghostName = ghosts[0].name
+		ghostsStill[0] = ghosts[0].name
 		fmt.Println(ghosts[0].name)
 		fmt.Println(keyedValues)
 	}
@@ -113,6 +114,7 @@ func main() {
 
 	// Evidence that has not been found
 	space := widget.NewSeparator()
+
 	// title2 := widget.NewLabel("Select The Evidence That Has Not Been Found:")
 
 	// selectEvidence4 := widget.NewSelect(evidence, func(value string) {
@@ -216,6 +218,8 @@ func main() {
 	// })
 
 	ghostsLeft := make([]string, 0, 12)
+	ghostsLeft = append(ghostsLeft, ghosts[0].name)
+
 	checkButton := widget.NewButton("Check", func() {
 		var keyed1 = selectEvidence1.SelectedIndex()
 		var keyed2 = selectEvidence2.SelectedIndex()
@@ -242,25 +246,33 @@ func main() {
 	// Render view
 	tabs := container.NewAppTabs(
 		container.NewTabItem("Inspect",
-			container.NewVBox(
-				title1,
-				selectEvidence1,
-				selectEvidence2,
-				selectEvidence3,
-				// space,
-				// title2,
-				// selectEvidence4,
-				// selectEvidence5,
-				// selectEvidence6,
-				// selectEvidence7,
-				space,
-				ghostList,
-				// space,
-				container.NewHBox(
-					clearButtonEv,
-					// clearButtonAll,
-					layout.NewSpacer(),
-					checkButton,
+			container.NewGridWithRows(3,
+
+				container.NewVBox(
+					title1,
+					selectEvidence1,
+					selectEvidence2,
+					selectEvidence3,
+					// space,
+					// title2,
+					// selectEvidence4,
+					// selectEvidence5,
+					// selectEvidence6,
+					// selectEvidence7,
+					space,
+				),
+				container.NewMax(
+					ghostList,
+					space,
+				),
+
+				container.NewVBox(
+					container.NewHBox(
+						clearButtonEv,
+						// clearButtonAll,
+						layout.NewSpacer(),
+						checkButton,
+					),
 				),
 			),
 		),
@@ -341,6 +353,6 @@ func main() {
 
 	w.SetContent(tabs)
 	w.CenterOnScreen()
-	// w.Resize(fyne.NewSize(700, 700))
+	w.Resize(fyne.NewSize(700, 500))
 	w.ShowAndRun()
 }
