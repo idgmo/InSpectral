@@ -5,18 +5,6 @@ Companion app for Phasmophobia game
 
 This app is created using Go languages (golang) and Fyne.io for the interface.
 
-TODO:
-- Revise V1.0 to display only evidence put in
-- V2.0 add not this evidence checker
-- populate static information in Evidence and Tips tabs
-- Clean up functions
-- Remove temporary code
-- Add further comments for clarity
-
-Optional:
-- Add pictures (if possible to pull without copyright)
-- Customize UI (with mobile in mind)
-
 
 Changes:
 
